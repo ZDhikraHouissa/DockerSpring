@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     registryBack = "dhikrahouissa/spring-docker-project"
-    registryCredential = 'dockerhub'
+    registryCredential = 'docker-hub'
     customDockerSpringImage = ''
     latestDockerSpringImage = ''
     GIT_LATEST_COMMIT_EDITOR = sh(
