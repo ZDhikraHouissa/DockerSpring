@@ -3,13 +3,13 @@ pipeline {
   environment {
     registryBack = "dhikrahouissa/spring-docker-project"
     registryCredential = 'docker-hub'
-    customDockerSpringImage = ''
-    latestDockerSpringImage = ''
+     latestDockerSpringImage 
     GIT_LATEST_COMMIT_EDITOR = sh(
       returnStdout: true,
       script: 'git show -s --pretty=%cn '
     ).trim()
   }
+ 
   stages {
 
     stage('Clone repository') {
@@ -30,8 +30,7 @@ pipeline {
       steps {
         script {
           env.latestDockerSpringImage = docker.build(env.registryBack)
-         /* env.customDockerSpringImage = docker.build("${env.registryBack}:${env.BUILD_ID}")*/
-        }
+         }
       }
     }
 
@@ -40,8 +39,7 @@ pipeline {
         script {
 
           docker.withRegistry('https://registry.hub.docker.com', env.registryCredential) {
-           /* env.customDockerSpringImage.push()*/
-            env.latestDockerSpringImage.push()
+             env.latestDockerSpringImage.push()
           }
         }
       }
