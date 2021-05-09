@@ -1,5 +1,5 @@
 # Build the application first using Maven
-FROM maven:3.8-openjdk-8
+FROM maven:3.8-openjdk-8 as build
 WORKDIR /app
 COPY . .
 RUN mvn install
