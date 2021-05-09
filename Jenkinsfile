@@ -2,7 +2,7 @@
 pipeline {
   agent any
   environment {
-    registryBack = "amanibo/angularproject"
+    registryBack = "dhikrahouissa/spring-docker-project"
     registryCredential = 'dockerhub'
     customDockerSpringImage = ''
 	latestDockerSpringImage = ''
@@ -22,23 +22,25 @@ pipeline {
 	  
         stage ('Show commit author') {
             steps {
+			script{
+			
                 sh "echo '${env.GIT_LATEST_COMMIT_EDITOR}'"
-            }
+            }}
         }
     stage('Build Spring Image') {
-      steps{
+      steps{script{
           env.latestDockerSpringImage = docker.build( env.registryBack )
           env.customDockerSpringImage = docker.build( "${env.registryBack}:${env.BUILD_ID}" )
-      }
+      }}
     }
     
     stage('Deploy Spring Image') {
-      steps{
+      steps{ script{
          
            docker.withRegistry( '' , env.registryCredential ) {
            env.customDockerSpringImage.push()
 		   env.latestDockerSpringImage.push()
-            
+            }
         }
       }
     }
