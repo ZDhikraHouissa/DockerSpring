@@ -30,7 +30,7 @@ pipeline {
       steps {
         script {
           env.latestDockerSpringImage = docker.build(env.registryBack)
-          env.customDockerSpringImage = docker.build("${env.registryBack}:${env.BUILD_ID}")
+         /* env.customDockerSpringImage = docker.build("${env.registryBack}:${env.BUILD_ID}")*/
         }
       }
     }
@@ -40,7 +40,7 @@ pipeline {
         script {
 
           docker.withRegistry('https://registry.hub.docker.com', env.registryCredential) {
-            env.customDockerSpringImage.push()
+           /* env.customDockerSpringImage.push()*/
             env.latestDockerSpringImage.push()
           }
         }
